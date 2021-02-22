@@ -2,12 +2,11 @@ var canvas = document.getElementById("myCanvas");
 var score = 0;
 var ctx = canvas.getContext("2d");
 
-var ballX = 20, ballY = 20, ballRadius = 10;
+var ballX = 20, ballY = 20, ballRadius = 10, color = "black";
 var velX = 2, velY = 2;
 var paddleX = canvas.width/2 - 30, paddleY = canvas.height - 30, paddle_lenght = 60, paddle_height = 10;
 var pressedLeft = false, pressedRight = false;
-var color = "black";
-var colors = ["black", "red", "blue", "green", "violet", "#40E0D0", "#000080"]
+
 
 addEventListener("keydown", keydown, false);
 addEventListener("keyup", keyup, false);
@@ -50,9 +49,10 @@ function movement(){
 }
 
 function collision(){
-    if(ballY - ballRadius +velY <= 0 || ballY + ballRadius+velY >= canvas.height) 
+    
+    if(ballY - ballRadius + velY <= 0 || ballY + ballRadius+velY >= canvas.height) 
         velY = -velY;
-    if(ballX - ballRadius +velX <= 0 || ballX + ballRadius+velX >= canvas.width){
+    if(ballX - ballRadius + velX <= 0 || ballX + ballRadius+velX >= canvas.width){
         velX = -velX;
         if(ballX - ballRadius < 0)
             ballX = ballRadius;
@@ -62,6 +62,7 @@ function collision(){
     
     if(ballY+ballRadius +velY >= paddleY && ballY-ballRadius <= paddleY+paddle_height)
         if(ballX +ballRadius/2 >= paddleX && ballX <= paddleX + paddle_lenght + ballRadius){
+                let  colors = ["black", "red", "blue", "green", "violet", "#40E0D0", "#000080"]
                 velY = -velY;
                 color = colors[Math.floor(Math.random() * colors.length)];
                 score++;
